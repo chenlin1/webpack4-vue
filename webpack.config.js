@@ -8,7 +8,7 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 module.exports = {
     entry: {
-        app: './app/js/main.js',
+        app: ['./app/js/viewport.js','./app/js/main.js'],
     },
     // devServer: {
     //     contentBase: path.join(__dirname, 'dist'),
@@ -35,7 +35,13 @@ module.exports = {
                         }
                       },
                     {
-                        loader: "css-loader"
+                        loader: "css-loader",
+                        options: {
+                            // 开启 CSS Modules
+                            modules: true,
+                            // 自定义生成的类名
+                            localIdentName: '[local]_[hash:base64:8]'
+                        }
                     },
                     {
                         loader: 'px2rem-loader',
@@ -62,7 +68,13 @@ module.exports = {
                         } 
                     },
                     {
-                        loader: "css-loader"
+                        loader: "css-loader",
+                        options: {
+                            // 开启 CSS Modules
+                            modules: true,
+                            // 自定义生成的类名
+                            localIdentName: '[local]_[hash:base64:8]'
+                        }
                     },
                     {
                         loader: 'px2rem-loader',
