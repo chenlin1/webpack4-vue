@@ -1,12 +1,15 @@
 <template>
     <div class="home">
-        <h1>home</h1>
-        <p class="title">title</p>
+          <Header />
     </div>
 </template>
 <script>
+ import Header from "../public/header.vue"
+
 export default {
-    
+    components: {
+        Header,
+    },
 }
 </script>
 
