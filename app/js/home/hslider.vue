@@ -1,6 +1,6 @@
 <template>
    <div>
-    <article :class="$style.h">
+    <article class="">
         <Slider :items="items" :cname="$style.slider"/>
         <section :class="$style.list">
             <div :class="$style.item" v-for="item in enters" :key="item.img">
@@ -70,15 +70,10 @@ export default {
 
 <style lang="scss" module>
  @import "../../css/element.scss";
-  .h{
-      height:400px;
-      margin-top: 120px;
-      background-color: red;
-      border: 1px #000 solid;
-  }
   .slider{
     margin-top: 120px;
-    height:400px;
+    height:280px;
+    background: red;
     img{
       width: 100%;
     }
