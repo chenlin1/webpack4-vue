@@ -34,8 +34,52 @@ module.exports = {
                 exclude: '/(node_modules)/', // 排除文件
                 loader: 'babel-loader'
               },
+              {
+                test: /\.css$/,
+                oneOf: [
+                    // 这里匹配 `<style module>`
+                    {
+                      resourceQuery: /module/,
+                      use: [
+                        {
+                          loader: 'css-loader',
+                          options: {
+                            modules: true,
+                            localIdentName: '[local]_[hash:base64:5]'
+                          }
+                        }
+                      ]
+                    },
+                    {
+                        use: [
+                            {
+                                loader: MiniCssExtractPlugin.loader,
+                                options: {
+                                  publicPath: '../'
+                                }
+                              },
+                            {
+                                loader: "css-loader",
+                                // options: {
+                                //     // 开启 CSS Modules
+                                //     modules: true,
+                                //     // 自定义生成的类名
+                                //     localIdentName: '[local]_[hash:base64:8]'
+                                // }
+                            },
+                            {
+                                loader: 'px2rem-loader',
+                                options: {
+                                    remUni: 75,
+                                    remPrecision: 8
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
             {
-                test: /\.(sa|sc|c)ss$/,
+                test: /\.(sa|sc)ss$/,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
@@ -96,7 +140,7 @@ module.exports = {
                         loader: "postcss-loader"
                     },
                     {
-                        loader: "sass-loader"
+                        loader: "less-loader"
                     }
                 ]
             },
