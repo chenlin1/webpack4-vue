@@ -7,7 +7,7 @@
         <Adb/>
         <Finance/>
         <Adc/>
-        <Footor cname="mfooter"/>
+        <Footor :cname="$style.mfooter"/>
         <Navbar/>
     </div>
 </template>
@@ -37,12 +37,13 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" module>
   .mfooter{
     margin-top: 0!important;
+    // border:1px red solid;
     ul{
       li:first-child{
-        display: none;
+        display: none !important;
       }
     }
   }

@@ -7,6 +7,9 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 module.exports = {
+    optimization: {
+        minimizer: [new UglifyJsPlugin()],
+      },
     entry: {
         app: ['./app/js/viewport.js','./app/js/main.js'],
     },
@@ -15,6 +18,7 @@ module.exports = {
     //     compress: true,
     //     port: 9000
     // },
+    mode:'development',
     module: {
         rules: [
             {
@@ -25,6 +29,11 @@ module.exports = {
                 test: /\.vue$/,
                 loader: 'vue-loader'
             },
+            {
+                test: '/\.js$/',
+                exclude: '/(node_modules)/', // 排除文件
+                loader: 'babel-loader'
+              },
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
@@ -124,7 +133,7 @@ module.exports = {
                         interlaced: false,
                     }
                     },
-                },
+                }
         ]
     },
     plugins: [
@@ -133,18 +142,18 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './app/views/index.html'
         }),
-        new UglifyJsPlugin({
-            uglifyOptions: {
-              compress: {
-                warnings: false, // 去除警告
-                drop_debugger: true, // 去除debugger
-                drop_console: true // 去除console.log
-              },
-            },
-            cache: true, // 开启缓存
-            parallel: true, // 平行压缩
-            sourceMap: false // set to true if you want JS source maps
-          }),
+        // new UglifyJsPlugin({
+        //     uglifyOptions: {
+        //       compress: {
+        //         warnings: false, // 去除警告
+        //         drop_debugger: true, // 去除debugger
+        //         drop_console: true // 去除console.log
+        //       },
+        //     },
+        //     cache: true, // 开启缓存
+        //     parallel: true, // 平行压缩
+        //     sourceMap: true // set to true if you want JS source maps
+        //   }),
         new MiniCssExtractPlugin({
             filename: 'style.css'
         }),
@@ -159,7 +168,8 @@ module.exports = {
     output: {
         filename: '[name].min.js',
         path: path.resolve(__dirname, 'dist')
-    }
+    },
+    devtool: 'source-map',
 }
 
 
